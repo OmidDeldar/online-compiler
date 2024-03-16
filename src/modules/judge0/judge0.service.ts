@@ -1,10 +1,11 @@
 import axios from "axios"
 import { UrlOptionDto } from "./DTOs/url-option.dto"
+import { CreateSubmissionsDto } from "./DTOs/create-submissions.dto";
 
 
 export class Judge0Service {
       constructor(){
-            this.getSubmissions()
+            // this.getSubmissions()
       }
       async start(){
             let options: UrlOptionDto = {
@@ -23,7 +24,8 @@ export class Judge0Service {
             }
       }
 
-      async CreateSubmissions(){
+      async CreateSubmissions(createSubmissionsDto: CreateSubmissionsDto){
+            
             const options: UrlOptionDto = {
                   method: 'POST',
                   url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -39,8 +41,8 @@ export class Judge0Service {
                   },
                   data: {
                     language_id: 76,
-                    source_code: 'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=',
-                    stdin: 'SnVkZ2Uw'
+                    source_code: btoa(createSubmissionsDto.source_code),
+                    stdin: btoa(createSubmissionsDto.input)
                   }
                 };
                 
