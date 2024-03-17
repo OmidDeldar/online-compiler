@@ -1,6 +1,6 @@
 import axios from "axios"
-import { UrlOptionDto } from "./DTOs/url-option.dto"
-import { CreateSubmissionsDto } from "./DTOs/create-submissions.dto";
+import { UrlOptionDto } from "../DTOs/url-option.dto"
+import { CreateSubmissionsDto } from "../DTOs/create-submissions.dto";
 
 
 export class Judge0Service {
@@ -40,25 +40,26 @@ export class Judge0Service {
                     'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
                   },
                   data: {
-                    language_id: 76,
-                    source_code: btoa(createSubmissionsDto.source_code),
-                    stdin: btoa(createSubmissionsDto.input)
+                    language_id: createSubmissionsDto.language,
+                    source_code: createSubmissionsDto.source_code,
+                    stdin: createSubmissionsDto.input
                   }
                 };
                 
                 try {
                       const response = await axios.request(options);
                       console.log(response.data);
+                      return response.data;
                 } catch (error) {
                       console.error(error);
                 }
       }
 
-      async getSubmissions(){
+      async getSubmissions(token: string){
             
             const options = {
                   method: 'GET',
-                  url: 'https://judge0-ce.p.rapidapi.com/submissions/ca77585f-8a3d-46d2-b94a-03650a1436b4',
+                  url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
                   params: {
                         base64_encoded: 'true',
                         fields: '*'
@@ -73,6 +74,7 @@ export class Judge0Service {
                       const response = await axios.request(options);
                       console.log("testtttttttttttt =>",atob(response.data.stdout))
                       console.log(response.data);
+                      return atob(response.data.stdout)
                 } catch (error) {
                       console.error(error);
                 }
