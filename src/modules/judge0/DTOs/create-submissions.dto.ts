@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger"
 
 export class CreateSubmissionsDto {
       @ApiProperty()
-      language: string
+      language: number
       @ApiProperty()
       input: string
       @ApiProperty()
