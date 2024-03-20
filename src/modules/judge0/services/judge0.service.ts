@@ -5,7 +5,7 @@ import { CreateSubmissionsDto } from "../DTOs/create-submissions.dto";
 
 export class Judge0Service {
       constructor(){
-            // this.getSubmissions()
+            // this.getLanguages()
       }
       async start(){
             let options: UrlOptionDto = {
@@ -29,12 +29,13 @@ export class Judge0Service {
             const options: UrlOptionDto = {
                   method: 'POST',
                   url: 'https://judge0-ce.p.rapidapi.com/submissions',
+                  // url: 'http://localhost:2358/submissions',
                   params: {
-                    base64_encoded: 'true',
-                    fields: '*'
+                  //   base64_encoded: 'true',
+                  //   fields: '*'
                   },
                   headers: {
-                    'content-type': 'application/json',
+                  //   'content-type': 'application/json',
                     'Content-Type': 'application/json',
                     'X-RapidAPI-Key': '871e804aecmsh715a9caee86ac80p1ad277jsn06f57d1bc817',
                     'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
@@ -60,9 +61,10 @@ export class Judge0Service {
             const options = {
                   method: 'GET',
                   url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+                  // url: `http://localhost:2358/submissions/${token}`,
                   params: {
-                        base64_encoded: 'true',
-                        fields: '*'
+                        // base64_encoded: 'true',
+                        // fields: '*'
                   },
                   headers: {
                     'X-RapidAPI-Key': '871e804aecmsh715a9caee86ac80p1ad277jsn06f57d1bc817',
@@ -72,13 +74,37 @@ export class Judge0Service {
                 
                 try {
                       const response = await axios.request(options);
-                      console.log("testtttttttttttt =>",atob(response.data.stdout))
+                  //     console.log("testtttttttttttt =>",atob(response.data.stdout))
                       console.log(response.data);
-                      return atob(response.data.stdout)
+                  //     return atob(response.data.stdout)
+                  return response.data.stdout
                 } catch (error) {
                       console.error(error);
                 }
       }
 
+
+      async getLanguages(){
+            const options = {
+                  method: 'GET',
+                  // url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+                  url: 'http://localhost:2358/languages/',
+                  // params: {
+                  //       base64_encoded: 'true',
+                  //       fields: '*'
+                  // },
+                  // headers: {
+                  //   'X-RapidAPI-Key': '871e804aecmsh715a9caee86ac80p1ad277jsn06f57d1bc817',
+                  //   'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+                  // }
+                };
+                
+                try {
+                      const response = await axios.request(options);
+                      console.log(response.data);
+                } catch (error) {
+                      console.error(error);
+                }
+      }
 
 }
