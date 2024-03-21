@@ -1,6 +1,7 @@
 import axios from "axios"
 import { UrlOptionDto } from "../DTOs/url-option.dto"
 import { CreateSubmissionsDto } from "../DTOs/create-submissions.dto";
+import { SubmissionResponseDto } from "../DTOs/submission-response.dto";
 
 
 export class Judge0Service {
@@ -75,9 +76,13 @@ export class Judge0Service {
                 try {
                       const response = await axios.request(options);
                   //     console.log("testtttttttttttt =>",atob(response.data.stdout))
-                      console.log(response.data);
+                  //     console.log(response.data);
                   //     return atob(response.data.stdout)
-                  return response.data.stdout
+                  const outputRes:SubmissionResponseDto = {
+                        output: response.data.stdout,
+                        status: response.data.status.description
+                  }
+                  return outputRes
                 } catch (error) {
                       console.error(error);
                 }
