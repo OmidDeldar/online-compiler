@@ -6,6 +6,9 @@ import { Logger as NestLogger, ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const nestLogger = new NestLogger('Main_Logger');
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: '*',
+  });
   const config = new DocumentBuilder()
   .setTitle('online-compiler')
   .setDescription('online-compiler using judge0')
