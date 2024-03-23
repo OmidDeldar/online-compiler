@@ -4,7 +4,7 @@ import { Judge0Service } from "../services/judge0.service";
 import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('Judge0')
-@Controller('Judge0')
+@Controller('judge0')
 export class Judge0Controller {
       constructor(
             private judge0Service: Judge0Service
