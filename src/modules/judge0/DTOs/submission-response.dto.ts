@@ -1,4 +1,5 @@
 export class SubmissionResponseDto {
-      output: string
-      status: string
+      output?: string
+      status?: string
+      error?: string
 }
