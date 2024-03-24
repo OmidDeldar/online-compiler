@@ -83,11 +83,11 @@ export class Judge0Service {
       };
       return outputRes;
     } catch (error) {
+      console.error("outputRes =>>>>>",error);
       const outputRes: SubmissionResponseDto = {
         status: error.status.description,
         error: error.compile_output,
       };
-      // console.error("outputRes =>>>>>",outputRes);
       return outputRes;
     }
   }
