@@ -3,11 +3,15 @@ import { UrlOptionDto } from '../DTOs/url-option.dto';
 import { CreateSubmissionsDto } from '../DTOs/create-submissions.dto';
 import { SubmissionResponseDto } from '../DTOs/submission-response.dto';
 import { Injectable } from '@nestjs/common';
+import { MongoService } from 'src/utility/mongo/service/mongo.service';
+import { CreateLanguageCodeDto } from 'src/utility/mongo/DTOs/create-language-code.dto';
 
 @Injectable()
 export class Judge0Service {
-  constructor() {
-    // this.getLanguages()
+  constructor(
+    private mongoService: MongoService
+  ) {
+    // this.start()
   }
   async start() {
     let options: UrlOptionDto = {
@@ -25,6 +29,7 @@ export class Judge0Service {
   }
 
   async CreateSubmissions(createSubmissionsDto: CreateSubmissionsDto) {
+    const languageCode = await this.mongoService.findOneLanguageCode(createSubmissionsDto.language)
     const options: UrlOptionDto = {
       method: 'POST',
       url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -40,7 +45,7 @@ export class Judge0Service {
         'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
       },
       data: {
-        language_id: createSubmissionsDto.language,
+        language_id: languageCode.id,
         source_code: createSubmissionsDto.source_code,
         stdin: createSubmissionsDto.input,
       },
