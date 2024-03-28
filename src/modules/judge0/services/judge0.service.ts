@@ -8,9 +8,7 @@ import { CreateLanguageCodeDto } from 'src/utility/mongo/DTOs/create-language-co
 
 @Injectable()
 export class Judge0Service {
-  constructor(
-    private mongoService: MongoService
-  ) {
+  constructor(private mongoService: MongoService) {
     // this.start()
   }
   async start() {
@@ -29,7 +27,9 @@ export class Judge0Service {
   }
 
   async CreateSubmissions(createSubmissionsDto: CreateSubmissionsDto) {
-    const languageCode = await this.mongoService.findOneLanguageCode(createSubmissionsDto.language)
+    const languageCode = await this.mongoService.findOneLanguageCode(
+      createSubmissionsDto.language,
+    );
     const options: UrlOptionDto = {
       method: 'POST',
       url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -79,7 +79,7 @@ export class Judge0Service {
     try {
       const response = await axios.request(options);
       //     console.log("testtttttttttttt =>",atob(response.data.stdout))
-      console.log(response.data);
+      console.log('response.data =>>>', response.data);
       //     return atob(response.data.stdout)
       const outputRes: SubmissionResponseDto = {
         output: response.data.stdout,
@@ -88,10 +88,11 @@ export class Judge0Service {
       };
       return outputRes;
     } catch (error) {
-      console.error("outputRes =>>>>>",error);
+      console.error('outputRes =>>>>>', error);
+
       const outputRes: SubmissionResponseDto = {
-        status: error.status.description,
-        error: error.compile_output,
+        status: error.code,
+        error: error.response.data.messages,
       };
       return outputRes;
     }
