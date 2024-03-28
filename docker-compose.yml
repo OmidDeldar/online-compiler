@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  app:
+    build: .
+    container_name: online_compiler
+    restart: always
+    ports:
+      - 4600:4600
+    environment:
+      MONGODB_URI: mongodb://brave_mayer:32768/compiler
+  mongodb:
+    container_name: brave_mayer
+    image: mongo
+    restart: always
+    ports:
+      - "32768:27017"
