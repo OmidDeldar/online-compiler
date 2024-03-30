@@ -11,6 +11,8 @@ export class Judge0Service {
   constructor(private mongoService: MongoService) {
     // this.start()
   }
+
+  // check connectivity
   async start() {
     let options: UrlOptionDto = {
       method: 'GET',
@@ -26,6 +28,7 @@ export class Judge0Service {
     } catch (error) {}
   }
 
+  // create submission(get the code,language, and input)
   async CreateSubmissions(createSubmissionsDto: CreateSubmissionsDto) {
     const languageCode = await this.mongoService.findOneLanguageCode(
       createSubmissionsDto.language,
@@ -61,6 +64,7 @@ export class Judge0Service {
     }
   }
 
+  // get submission(output)
   async getSubmissions(token: string) {
     const options = {
       method: 'GET',
@@ -98,6 +102,7 @@ export class Judge0Service {
     }
   }
 
+  // get languages with their languagecode
   async getLanguages() {
     const options = {
       method: 'GET',
