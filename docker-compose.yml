@@ -6,11 +6,14 @@ services:
     restart: always
     ports:
       - 4600:4600
+    depends_on:
+      - mongodb
     environment:
-      MONGODB_URI: mongodb://brave_mayer:32768/compiler
+      MONGODB_URI: mongodb://mongodb:27017/compiler
+    
   mongodb:
-    container_name: brave_mayer
+    container_name: mongodb
     image: mongo
     restart: always
     ports:
-      - "32768:27017"
+      - "27017:27017"

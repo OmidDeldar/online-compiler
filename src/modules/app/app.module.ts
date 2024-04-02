@@ -7,8 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     Judge0Module,
-    MongooseModule.forRoot('mongodb://localhost:32768/compiler'),
     MongoModule
   ],
   controllers: [AppController],
