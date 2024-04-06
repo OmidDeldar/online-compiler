@@ -19,4 +19,9 @@ export class Judge0Controller {
       getSubmission(@Query('token') token: string){
             return this.judge0Service.getSubmissions(token)
       }
+
+      @Get('get/languages')
+      getLanguages(){
+            return this.judge0Service.getLanguages()
+      }
 }
