@@ -24,7 +24,7 @@ export class Judge0Service {
     };
     try {
       const response = await axios.request(options);
-      console.log(response.data);
+      return response.data
     } catch (error) {}
   }
 
@@ -56,10 +56,8 @@ export class Judge0Service {
 
     try {
       const response = await axios.request(options);
-      console.log(response.data);
       return response.data;
     } catch (error) {
-      console.error(error.code);
       return { error: error.code };
     }
   }
@@ -82,8 +80,6 @@ export class Judge0Service {
 
     try {
       const response = await axios.request(options);
-      
-      console.log('response.data =>>>', response.data);
       const outputRes: SubmissionResponseDto = {
         output: response.data.stdout,
         status: response.data.status.description,
